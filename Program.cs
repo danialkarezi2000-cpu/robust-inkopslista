@@ -13,7 +13,12 @@ while (true)
     Console.WriteLine("5. Avsluta");
     Console.Write("Välj: ");
 
-    int choice = int.Parse(Console.ReadLine());
+    int choice;
+
+    while (!int.TryParse(Console.ReadLine(), out choice)) //Keep asking until the user enters a vlid number.
+    {
+        Console.Write("Skriv ett giltigt nummer: ");
+    }
 
     if (choice == 1)
     {
@@ -52,4 +57,9 @@ while (true)
     {
         break;
     }
+}
+
+void While(bool v)
+{
+    throw new NotImplementedException();
 }
