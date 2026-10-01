@@ -36,7 +36,12 @@ while (true)
     else if (choice == 2)
     {
         Console.Write("Nummer: ");
-        int number = int.Parse(Console.ReadLine());
+        int number;
+
+        while (!int.TryParse(Console.ReadLine(), out number)) //Keep asking until the user enter a valid number.
+        {
+            Console.Write("Skriv ett giltigt nummer:");
+        }
         list.RemoveAt(number);
     }
     else if (choice == 3)
