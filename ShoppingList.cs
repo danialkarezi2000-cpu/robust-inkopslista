@@ -87,6 +87,11 @@ class ShoppingList
     // Reads the file back into the list.
     public void Load()
     {
+        if (!File.Exists(path)) // Stops loading if the file doesn't exist.
+        {
+            Console.WriteLine(" Det finns ingen sparad lista. ");
+            return;
+        }
         string text = File.ReadAllText(path);
         string[] lines = text.Split('\n');
 
