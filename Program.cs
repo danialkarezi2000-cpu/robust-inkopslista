@@ -25,7 +25,12 @@ while (true)
         Console.Write("Namn: ");
         string name = Console.ReadLine();
         Console.Write("Pris: ");
-        int price = int.Parse(Console.ReadLine());
+        int price;
+
+        while (!int.TryParse(Console.ReadLine(), out price)) //Keeps asking until the user enters a valid price.
+        {
+            Console.Write("Skriv ett giltigt pris: ");
+        }
         list.Add(new Item(name, price));
     }
     else if (choice == 2)
@@ -59,7 +64,3 @@ while (true)
     }
 }
 
-void While(bool v)
-{
-    throw new NotImplementedException();
-}
