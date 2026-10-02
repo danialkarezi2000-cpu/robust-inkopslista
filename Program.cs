@@ -1,4 +1,4 @@
-ShoppingList list = new ShoppingList("items.txt");
+ShoppingList list = new ShoppingList("items.txt", 200); // Set budget limit to 200 kr.
 list.Load();
 
 while (true)
@@ -42,6 +42,10 @@ while (true)
         catch (ArgumentException)
         {
             Console.WriteLine("Namnet får inte vara tomt.");
+        }
+        catch (InvalidOperationException)
+        {
+            Console.WriteLine("Varan får inte plats i budgeten.");
         }
     }
     else if (choice == 2)

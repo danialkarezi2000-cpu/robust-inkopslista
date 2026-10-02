@@ -3,14 +3,20 @@ class ShoppingList
 {
     private List<Item> items = new List<Item>();
     private string path;
+    private int budgetLimit;
 
-    public ShoppingList(string path)
+    public ShoppingList(string path, int budgetLimit)
     {
         this.path = path;
+        this.budgetLimit = budgetLimit;
     }
 
     public void Add(Item item)
     {
+        if (Total() + item.Price > budgetLimit) // Checks if the item would exceed the budget.
+        {
+            throw new InvalidOperationException("Budgeten skulle överskridas.");
+        }
         items.Add(item);
     }
 
@@ -113,7 +119,14 @@ class ShoppingList
                 Console.WriteLine($"Hoppar över en trasig rad i filen: {line}");
                 continue;
             }
-            items.Add(new Item(parts[1], price));
+            try
+            {
+                items.Add(new Item(parts[1], price));
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine($"Hoppar över en trasig rad i filen: {line}");
+            }
         }
     }
 }
