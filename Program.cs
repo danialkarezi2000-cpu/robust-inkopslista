@@ -40,7 +40,7 @@ while (true)
 
         while (!int.TryParse(Console.ReadLine(), out number)) //Keep asking until the user enter a valid number.
         {
-            Console.Write("Skriv ett giltigt nummer:");
+            Console.Write("Skriv ett giltigt nummer: ");
         }
         list.RemoveAt(number);
     }
@@ -66,6 +66,10 @@ while (true)
     else if (choice == 5)
     {
         break;
+    }
+    else // Any number thatis not a menu option.
+    {
+        Console.WriteLine("Ogiltigt val, välj 1-5.");
     }
 }
 
