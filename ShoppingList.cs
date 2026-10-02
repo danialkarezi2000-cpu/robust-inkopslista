@@ -92,9 +92,7 @@ class ShoppingList
             Console.WriteLine(" Det finns ingen sparad lista. ");
             return;
         }
-        string text = File.ReadAllText(path);
-        string[] lines = text.Split('\n');
-
+        String[] lines = File.ReadAllLines(path); // Reads the file on line at a time.
         foreach (string line in lines)
         {
             //Skips empty lines
