@@ -44,7 +44,7 @@ class ShoppingList
     {
         foreach (Item item in items)
         {
-            if (item.Name == name)
+            if (item.Name.ToLower() == name.ToLower())
             {
                 return item;
             }
@@ -106,7 +106,14 @@ class ShoppingList
                 continue;
             }
             string[] parts = line.Split(';');
-            items.Add(new Item(parts[1], int.Parse(parts[0])));
+            // Checks that the line is in the correct format and that the price is a valid number. If not, skip it.
+
+            if (parts.Length != 2 || !int.TryParse(parts[0], out int price))
+            {
+                Console.WriteLine($"Hoppar över en trasig rad i filen: {line}");
+                continue;
+            }
+            items.Add(new Item(parts[1], price));
         }
     }
 }
