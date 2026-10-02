@@ -73,15 +73,20 @@ class ShoppingList
             lines.Add($"{item.Price};{item.Name}");
         }
 
-        try
+        try // Tries to save the list to the file.
         {
             File.WriteAllText(path, string.Join("\r\n", lines) + "\r\n");
+            Console.WriteLine("Listan är sparad.");
         }
-        catch
+        catch (UnauthorizedAccessException)
         {
+            Console.WriteLine("Det gick inte att spara: du saknar behörighet att skriva till filen.");
+        }
+        catch (IOException ex)
+        {
+            Console.WriteLine($"Det gick inte att spara listan:{ex.Message}");
         }
 
-        Console.WriteLine("Listan är sparad.");
     }
 
     // Reads the file back into the list.
