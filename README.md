@@ -34,3 +34,14 @@ Programmet använde `int.Parse()`. Om texten inte kunde göras om till ett helta
 
 **Hur fixade jag det?**
 Jag bytte till `int.TryParse()` så att programmet kan kontrollera inmatningen och fråga igen i stället för att krascha.
+
+### Fel 4: Fel nummer vid borttagning.
+
+**Vad hände?**
+Programmet kraschade om användaren försökte ta bort en vara med ett nummer som inte fanns i listan.
+
+**Varför?**
+`RemoveAt()` använde `items.RemoveAt(number - 1)` utan att först kontrollera om numret var giltigt. Om numret var för stort eller mindre än 1 blev indexet fel och programmet fick `ArgumentOutOfRangeException`.
+
+**Hur fixade jag det?**
+Jag lade till en kontroll som ser till att numret är mellan 1 och antalet varor i listan innan varan tas bort. Om numret är fel visar programmet meddelandet " Det finns ingen vara med det numret." i stället för att krascha.
