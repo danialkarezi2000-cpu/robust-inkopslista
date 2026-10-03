@@ -45,3 +45,14 @@ Programmet kraschade om användaren försökte ta bort en vara med ett nummer so
 
 **Hur fixade jag det?**
 Jag lade till en kontroll som ser till att numret är mellan 1 och antalet varor i listan innan varan tas bort. Om numret är fel visar programmet meddelandet " Det finns ingen vara med det numret." i stället för att krascha.
+
+### Fel 5: Fel totalsumma.
+
+**Vad hände?**
+Totalsumman blev för låg. Med Mjölk (15), Bröd (32)och Ost (89) visade programmet 121 kr i stället för 136 kr.
+
+**Varför?**
+I `Total()` började loopen på `i = 1`. Då hoppade programmet över den första varan i listan.
+
+**Hur fixade jag det?**
+Jag ändrade startvärdet från `i = 1` till `i = 0` så att alla varor räknas med i summan.
