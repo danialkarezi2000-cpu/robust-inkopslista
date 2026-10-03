@@ -56,3 +56,14 @@ I `Total()` började loopen på `i = 1`. Då hoppade programmet över den först
 
 **Hur fixade jag det?**
 Jag ändrade startvärdet från `i = 1` till `i = 0` så att alla varor räknas med i summan.
+
+### Fel 6: Fel vid sparning doldes.
+
+**Vad hände?**
+Programmet kunde säga att listan var sparad även om något gick fel vid sparningen.
+
+**Varför?**
+`Save()` hade en tom `catch`. Om `File.WriteAllText()` misslyckades fångades felet, men programmet gjorde inget med det och skrev ändå att listan var sparad.
+
+**Hur fixade jag det?**
+Jag ersatte den tomma `catch` med specifika undantag, till exempel `UnauthorizedAccessException` och `IOException`. Meddelandet "Listan är sparad." visas nu bara när sparningen lyckas.
