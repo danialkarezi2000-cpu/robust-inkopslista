@@ -79,3 +79,12 @@ I `Program.cs` skapas listan med budgeten `200`:
 `new ShoppingList("items.txt", 200)`
 Budgeten sparas sedan i variablen `budgetLimit` i `ShoppingList`.
 Jag valde den lösning eftersom budgeten kan ändras i `Program.cs` utan att ändra inne i `ShoppingList`.
+
+**Vad händer när budgeten överskrids?**
+Om en ny vara gör att totalsumman går över budgettaket `Add()` ett `InvalidOperationException`. Varan läggs då inte till i listan.
+
+**Varför ett undantag och inte false?**
+Jag valde ett undantag eftersom det är fel som ska stoppas driekt. Om `Add()` bara returnerade `false` skulle det vara lättare att missa att varan inte lades till.
+
+**Hur hanteras det i Program.cs?**
+I `Program.cs` fångas `InvalidOperationException` med `catch`. Då visas meddelandet "Varan får inte plats i budgeten." och programmet forsätter köra.
