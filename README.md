@@ -5,13 +5,13 @@
 ### Fel 1: Programmet kraschade vid start.
 
 **Vad hände?**
-Programmet kraschade när det läste filen.
+Programmet kunde krasha vid start på grund av en tom rad i filen. Sökning kunde också missa en vara som syntes i listan.
 
 **Varför?**
-I `Load()` delades varje rad med `Split(';')`. En tom rad gav bara `parts[0]`. När programmet sedan försökte läsa `parts[1]` fanns den inte, och därför fick programmet `IndexOutOfRangeException`.
+`Load()` delade filen vid `\n`, men raderna i filen avslutades med `\r\n`. Då kunde `\r` bli kvar i slutet av varans namn, till exempel `"Ost\r"`. Det gjorde att sökningen inte hittade namnet `"Ost"`. Det kunde också bli en tom sista rad som gjorde att `parts[1]` inte fanns.
 
 **Hur fixade jag det?**
-Jag lade till en kontroll med `IsNullOrWhiteSpace` och hoppade över tomma rader.
+Jag bytte till `File.ReadAllLines()` så att filen läses rad för rad utan att `\r` blir kvar i namnen. Jag lade också till `IsNullOrWhiteSpace()` för att hoppa över tomma rader.
 
 ### Fel 2: Filen saknades.
 
@@ -44,12 +44,12 @@ Programmet kraschade om användaren försökte ta bort en vara med ett nummer so
 `RemoveAt()` använde `items.RemoveAt(number - 1)` utan att först kontrollera om numret var giltigt. Om numret var för stort eller mindre än 1 blev indexet fel och programmet fick `ArgumentOutOfRangeException`.
 
 **Hur fixade jag det?**
-Jag lade till en kontroll som ser till att numret är mellan 1 och antalet varor i listan innan varan tas bort. Om numret är fel visar programmet meddelandet " Det finns ingen vara med det numret." i stället för att krascha.
+Jag lade till en kontroll som ser till att numret är mellan 1 och antalet varor i listan innan varan tas bort. Om numret är fel visar programmet meddelandet "Det finns ingen vara med det numret." i stället för att krascha.
 
 ### Fel 5: Fel totalsumma.
 
 **Vad hände?**
-Totalsumman blev för låg. Med Mjölk (15), Bröd (32)och Ost (89) visade programmet 121 kr i stället för 136 kr.
+Totalsumman blev för låg. Med Mjölk (15), Bröd (32) och Ost (89) visade programmet 121 kr i stället för 136 kr.
 
 **Varför?**
 I `Total()` började loopen på `i = 1`. Då hoppade programmet över den första varan i listan.
@@ -77,14 +77,14 @@ Jag ersatte den tomma `catch` med specifika undantag, till exempel `Unauthorized
 Jag valde att skicka in budgettaket till `ShoppingList` genom konstruktorn.
 I `Program.cs` skapas listan med budgeten `200`:
 `new ShoppingList("items.txt", 200)`
-Budgeten sparas sedan i variablen `budgetLimit` i `ShoppingList`.
-Jag valde den lösning eftersom budgeten kan ändras i `Program.cs` utan att ändra inne i `ShoppingList`.
+Budgeten sparas sedan i variabeln `budgetLimit` i `ShoppingList`.
+Jag valde den lösningen eftersom budgeten kan ändras i `Program.cs` utan att ändra inne i `ShoppingList`.
 
 **Vad händer när budgeten överskrids?**
-Om en ny vara gör att totalsumman går över budgettaket `Add()` ett `InvalidOperationException`. Varan läggs då inte till i listan.
+Om en ny vara gör att totalsumman går över budgettaket, kastar `Add()` ett `InvalidOperationException`. Varan läggs då inte till i listan.
 
 **Varför ett undantag och inte false?**
-Jag valde ett undantag eftersom det är fel som ska stoppas driekt. Om `Add()` bara returnerade `false` skulle det vara lättare att missa att varan inte lades till.
+Jag valde ett undantag eftersom det är fel som ska stoppas direkt. Om `Add()` bara returnerade `false` skulle det vara lättare att missa att varan inte lades till.
 
 **Hur hanteras det i Program.cs?**
-I `Program.cs` fångas `InvalidOperationException` med `catch`. Då visas meddelandet "Varan får inte plats i budgeten." och programmet forsätter köra.
+I `Program.cs` fångas `InvalidOperationException` med `catch`. Då visas meddelandet "Varan får inte plats i budgeten." och programmet fortsätter köra.
