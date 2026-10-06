@@ -67,3 +67,7 @@ Programmet kunde säga att listan var sparad även om något gick fel vid sparni
 
 **Hur fixade jag det?**
 Jag ersatte den tomma `catch` med specifika undantag, till exempel `UnauthorizedAccessException` och `IOException`. Meddelandet "Listan är sparad." visas nu bara när sparningen lyckas.
+
+## Klassdiagram
+
+![Klassdiagram](Klassdiagram.png)
