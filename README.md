@@ -71,3 +71,11 @@ Jag ersatte den tomma `catch` med specifika undantag, till exempel `Unauthorized
 ## Klassdiagram
 
 ![Klassdiagram](Klassdiagram.png)
+
+## Designval - Budgettak
+
+Jag valde att skicka in budgettaket till `ShoppingList` genom konstruktorn.
+I `Program.cs` skapas listan med budgeten `200`:
+`new ShoppingList("items.txt", 200)`
+Budgeten sparas sedan i variablen `budgetLimit` i `ShoppingList`.
+Jag valde den lösning eftersom budgeten kan ändras i `Program.cs` utan att ändra inne i `ShoppingList`.
